@@ -1,7 +1,5 @@
 import {API_AUTH_LOGIN, API_KEY} from "../constants.js";
 
-export async function login({ email, password }) {}
-
 export async function apiLogin({ email, password }) {
     try {
         const response = await fetch(API_AUTH_LOGIN, {
