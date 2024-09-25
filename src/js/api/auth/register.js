@@ -1,4 +1,4 @@
-import {API_AUTH_REGISTER} from "../constants.js";
+import { API_AUTH_REGISTER } from "../constants.js";
 
 export async function register({ name, email, password, bio, banner, avatar }) {
   const headers = new Headers({
@@ -12,9 +12,9 @@ export async function register({ name, email, password, bio, banner, avatar }) {
   if (avatar) requiredData.avatar = avatar;
 
   const requestOptions = {
-    method: 'POST',
+    method: "POST",
     headers: headers,
-    body: JSON.stringify(requiredData)
+    body: JSON.stringify(requiredData),
   };
 
   try {
@@ -22,13 +22,13 @@ export async function register({ name, email, password, bio, banner, avatar }) {
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      console.error('Registration failed.', errorResponse);
-      return {error: errorResponse.error || 'Registration failed.'};
+      console.error('Registration failed:', errorResponse);
+      return { error: errorResponse.error || 'Registration failed' };
     }
 
     return await response.json();
   } catch (error) {
     console.error('Error during registration:', error);
-    return {error: error.message};
+    return { error: error.message };
   }
 }
