@@ -8,9 +8,25 @@
   </head>
   <body>
     <h1>Create Post</h1>
-<h2>test</h2>
-    <form name="createPost">
-      <button>Create Post</button>
+    
+    <form name="createPost" method="post">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+      </div>
+      <div>
+        <label for="post">Post</label>
+        <input type="text" name="post" id="post">
+      </div>
+      <div>
+        <label for="image">Image Url</label>
+        <input type="text" name="image" id="image">
+      </div>
+      <div>
+        <label for="tags">Tags</label>
+        <input type="text" name="tags" id="tags">
+      </div>
+      <button type="submit">Create Post</button>
     </form>
   </body>
 </html>
