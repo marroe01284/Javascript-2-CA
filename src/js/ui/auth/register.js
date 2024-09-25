@@ -22,4 +22,11 @@ export async function onRegister(event) {
         console.error(error);
         alert(`Registration failed: ${error.message}`);
     }
+
+    const postDate = new Date(parseInt(post.added_date)).toISOString();
+    const printPost = `
+    <div id="individual-post-title">${post.title}</div>
+    <div id="individual-post-date">${postDate}</div>
+    <div id="individual-post-content">${post.content}</div>
+    `
 }
