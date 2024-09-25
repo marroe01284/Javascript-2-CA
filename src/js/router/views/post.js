@@ -30,8 +30,8 @@ const displayPost = (post) => {
         return;
     }
 
-    document.getElementById('.blog-inner').innerHTML = `
+    document.getElementById('#post-inner').innerHTML = `
         <div id="individual-post-title">${post.title}</div>
-        <div id="individual-post-content">${post.content}</div>
+        <div id="individual-post-content">${post.media.alt.url}</div>
     `;
 };
