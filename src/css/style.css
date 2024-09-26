@@ -1,78 +1,74 @@
 @import url(_reset.css);
 
-/* General styling for the posts container */
 #posts-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid layout */
-    gap: 20px; /* Space between grid items */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  /* Individual post container */
-  .post {
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
-  }
-  
-  /* Add hover effect to posts */
-  .post:hover {
+}
+
+.post:hover {
     transform: scale(1.05);
-  }
-  
-  /* Styling for post title */
-  .post h2 {
+}
+
+.post h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-  }
-  
-  /* Styling for post body */
-  .post p {
+}
+
+.post p {
     font-size: 1rem;
     color: #333;
     margin-bottom: 15px;
-  }
-  
-  /* Styling for author info */
-  .author {
+}
+
+.author {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
-  }
-  
-  .author .author-img {
-    width: 50px;   /* Adjust this size for the profile pictures */
+}
+
+.author .author-img {
+    width: 50px;
     height: 50px;
     border-radius: 50%;
-    object-fit: cover;  /* Ensures images don’t stretch */
+    object-fit: cover;
     margin-right: 10px;
-  }
-  
-  /* Styling for post media (if there's an image in the post) */
-  .post-media {
+}
+
+.post-media {
     width: 100%;
+    max-width: 80%;
     height: 200px;
-    object-fit: cover;  /* Ensures images maintain aspect ratio and cover the space */
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
-  }
-  
-  /* Styling for post actions (edit, delete) */
-  .post-actions {
+}
+
+.post-actions {
     margin-top: 10px;
-  }
-  
-  .post-actions a {
+}
+
+.post-actions a {
     text-decoration: none;
     color: #007bff;
-  }
-  
-  .post-actions button {
+}
+
+.post-actions button {
     background-color: #dc3545;
     color: white;
     border: none;
@@ -80,34 +76,35 @@
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
-  }
-  
-  .post-actions button:hover {
+}
+
+.post-actions button:hover {
     background-color: #c82333;
-  }
-  
-  /* Error message styling */
-  .error-message {
+}
+
+.error-message {
     color: red;
     text-align: center;
-  }
-  
-  /* Ensure responsive layout */
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .post {
-      padding: 10px;
+        padding: 10px;
     }
-  
+
     .post h2 {
-      font-size: 1.25rem;
+        font-size: 1.25rem;
     }
-  
+
     .post p {
-      font-size: 0.9rem;
+        font-size: 0.9rem;
     }
-  }
-  
-=======
+}
+
+.author-link {
+    display: flex;
+    flex-direction: column;
+}
 
 #loginDiv {
     display: flex;
@@ -194,3 +191,30 @@
     text-decoration: underline;
 }
 
+.author-img {
+    max-width: 85%;
+}
+
+#updateProfileForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#updateProfileForm label {
+    margin: 0 0 4px 0;
+}
+
+#updateProfileForm input {
+    width: 220px;
+    height: 22px;
+    margin: 0 0 12px 0;
+}
+
+#updateProfileForm button {
+    width: 100px;
+    height: 28px;
+    border: none;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}

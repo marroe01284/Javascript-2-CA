@@ -1,4 +1,4 @@
-import { apiLogin } from '../../api/auth/login.js';
+import {apiLogin} from '../../api/auth/login.js';
 
 export async function onLogin(event) {
     event.preventDefault();
@@ -6,7 +6,7 @@ export async function onLogin(event) {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const result = await apiLogin({ email, password });
+    const result = await apiLogin({email, password});
 
     if (result.error) {
         alert("Login failed: " + result.error);

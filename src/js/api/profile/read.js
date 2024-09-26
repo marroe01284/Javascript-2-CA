@@ -1,12 +1,6 @@
-import { API_SOCIAL_PROFILES, API_KEY } from "../constants";
-import { getKey } from "../auth/key";
+import {API_SOCIAL_PROFILES, API_KEY} from "../constants";
+import {getKey} from "../auth/key";
 
-/**
- * Fetches a profile by username.
- *
- * @param {string} username - The username of the profile to retrieve.
- * @returns {Promise<Object>} The profile data from the API.
- */
 export async function readProfile(username) {
     const myHeaders = new Headers();
     myHeaders.append("X-Noroff-API-Key", API_KEY);
@@ -26,7 +20,6 @@ export async function readProfile(username) {
             throw new Error(`Failed to fetch profile: ${response.statusText}`);
         }
 
-        // Return the parsed JSON response
         return await response.json();
     } catch (error) {
         console.error("Error fetching profile:", error);
@@ -34,5 +27,5 @@ export async function readProfile(username) {
     }
 }
 
-
-export async function readProfiles(limit, page) {}
+export async function readProfiles(limit, page) {
+}

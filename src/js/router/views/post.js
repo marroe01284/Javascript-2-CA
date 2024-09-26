@@ -1,5 +1,5 @@
-import { readPost } from '../../api/post/read';
-import { setLogoutListener } from '../../ui/global/logout';
+import {readPost} from '../../api/post/read';
+import {setLogoutListener} from '../../ui/global/logout';
 
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
