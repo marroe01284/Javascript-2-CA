@@ -1,30 +1,5 @@
 import {register} from "../../api/auth/register.js";
 
-/*export async function onRegister(event) {
-    event.preventDefault();
-
-    const form = event.target;
-    const formData = new FormData(form);
-
-    const registerData = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        password: formData.get('password'),
-        bio: formData.get('bio') || '',
-        banner: formData.get('banner') || '',
-        avatar: formData.get('avatar') || ''
-    };
-
-    const result = await register(registerData);
-
-    if (result && !result.error) {
-        alert('Registration successful. Redirecting to login..');
-        window.location.href = "";
-    } else {
-        alert('Registration failed: ' + (result.error || 'An unknown error occurred.'));
-    }
-}*/
-
 export async function onRegister(event) {
     event.preventDefault();
 

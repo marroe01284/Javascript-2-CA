@@ -20,5 +20,3 @@ export async function apiLogin({ email, password }) {
         return {error: error.message};
     }
 }
-
-
