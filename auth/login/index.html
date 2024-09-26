@@ -8,20 +8,37 @@
 </head>
 
 <body>
-<h1>Login</h1>
-<form name="login">
-  <div>
-    <label for="email">Email</label>
-    <input id="email" type="email" name="email" required />
-  </div>
 
-  <div>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required />
-  </div>
+<nav id="profileNav">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/profile/">My Profile</a></li>
+    <li><a href="/auth/login/">Login</a></li>
+    <li><a href="/auth/register/">Register</a></li>
+    <li><a href="/post/create/">Create Post</a></li>
+  </ul>
+</nav>
 
-  <a href="/auth/register/">Register</a>
-  <button>Login</button>
-</form>
+<div id="loginDiv">
+  <h1>Login</h1>
+  <form name="login">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" placeholder="yourmail@stud.noroff.no" required />
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="•••••••••••" required />
+    </div>
+
+    <div id="btnDiv">
+      <button>Login</button>
+      <p>or</p>
+      <a href="/auth/register/">Register</a>
+    </div>
+  </form>
+</div>
+
 </body>
 </html>
