@@ -10,21 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 authGuard();
 
-/**
- * Retrieves the author ID from the URL query parameters.
- *
- * @returns {string|null} The author ID if present, otherwise null.
- */
 function getAuthorIDFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('authorID');
 }
 
-/**
- * Retrieves the logged-in user's username from localStorage.
- *
- * @returns {string|null} The username if present, otherwise null.
- */
 function getLoggedInUserName() {
     return localStorage.getItem('userID');
 }
@@ -33,12 +23,6 @@ const authorID = getAuthorIDFromURL();
 const loggedInUserName = getLoggedInUserName();
 const isOwnProfile = !authorID || authorID === loggedInUserName;
 
-/**
- * Toggles the visibility of the edit profile button and update profile form
- * based on whether the profile belongs to the logged-in user.
- *
- * @param {boolean} isOwnProfile - True if viewing own profile, false otherwise.
- */
 function toggleEditProfileSections(isOwnProfile) {
     const editProfileSection = document.getElementById('editProfileSection');
     const updateProfileForm = document.getElementById('updateProfileForm');
@@ -63,9 +47,6 @@ if (isOwnProfile) {
     const updateProfileForm = document.getElementById('updateProfileForm');
 
     if (editProfileButton && updateProfileForm) {
-        /**
-         * Toggles the visibility of the update profile form.
-         */
         function toggleUpdateProfileForm() {
             if (updateProfileForm.style.display === 'none' || updateProfileForm.style.display === '') {
                 updateProfileForm.style.display = 'block';
@@ -73,19 +54,12 @@ if (isOwnProfile) {
                 updateProfileForm.style.display = 'none';
             }
         }
-
         editProfileButton.addEventListener('click', toggleUpdateProfileForm);
     } else {
         console.warn('Edit profile button or update profile form not found.');
     }
 }
 
-/**
- * Loads the profile data for the current user or the specified author ID.
- *
- * @async
- * @returns {Promise<void>}
- */
 async function loadProfile() {
     const username = isOwnProfile ? loggedInUserName : authorID;
     try {
@@ -98,12 +72,6 @@ async function loadProfile() {
 
 loadProfile();
 
-/**
- * Escapes HTML special characters in a string to prevent XSS attacks.
- *
- * @param {string} str - The string to escape.
- * @returns {string} The escaped string.
- */
 function escapeHTML(str) {
     if (!str) return '';
     return str.replace(/[&<>'"]/g, function (tag) {
@@ -118,11 +86,6 @@ function escapeHTML(str) {
     });
 }
 
-/**
-* Displays the profile data on the page.
-*
-* @param {Object} profileData - The profile data object.
-*/
 function displayProfileData(profileData) {
     const profileContainer = document.getElementById('profileContainer');
     const profileBannerImage = document.getElementById('profileBannerImage');
@@ -183,12 +146,6 @@ function displayProfileData(profileData) {
     }
 }
 
-/**
- * Loads the posts created by the current user or the specified author ID.
- *
- * @async
- * @returns {Promise<void>}
- */
 async function loadUserPosts() {
     const username = isOwnProfile ? loggedInUserName : authorID;
     try {
@@ -200,14 +157,8 @@ async function loadUserPosts() {
         console.error('Error fetching user posts:', error);
     }
 }
-
 loadUserPosts();
 
-/**
- * Displays the user's posts on the page.
- *
- * @param {Array<Object>} posts - An array of post objects.
- */
 function displayUserPosts(posts) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
@@ -253,7 +204,5 @@ function displayUserPosts(posts) {
 
             });
         });
-        
-        
     }
 }
