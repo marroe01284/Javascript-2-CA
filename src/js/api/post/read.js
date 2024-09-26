@@ -1,12 +1,6 @@
-import { API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES } from "../constants";
-import { getKey } from "../auth/key";
+import {API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES} from "../constants";
+import {getKey} from "../auth/key";
 
-/**
- * Fetches a post by its ID.
- *
- * @param {string} id - The ID of the post to fetch.
- * @returns {Promise<Object>} A promise that resolves to the post data.
- */
 export async function readPost(id) {
   const myHeaders = new Headers();
   myHeaders.append("X-Noroff-API-Key", API_KEY); 
@@ -36,14 +30,6 @@ export async function readPost(id) {
   }
 }
 
-/**
- * Fetches a list of posts with pagination.
- *
- * @param {number} [limit=12] - The number of posts to retrieve per page.
- * @param {number} [page=1] - The page number to retrieve.
- * @returns {Promise<Object>} A promise that resolves to an object containing posts and pagination info.
- * @throws Will throw an error if the network request fails.
- */
 export async function readPosts(limit = 12, page = 1,) {
   const myHeaders = new Headers();
   myHeaders.append("X-Noroff-API-Key", API_KEY); 
@@ -72,16 +58,6 @@ export async function readPosts(limit = 12, page = 1,) {
   }
 }
 
-/**
- * Fetches posts created by a specific user, with optional pagination and tag filtering.
- *
- * @param {string} username - The username of the author whose posts to retrieve.
- * @param {number} [limit=12] - The number of posts to retrieve per page.
- * @param {number} [page=1] - The page number to retrieve.
- * @param {string} [tag] - An optional tag to filter the posts by.
- * @returns {Promise<Object>} A promise that resolves to an object containing the user's posts.
- * @throws Will throw an error if the network request fails.
- */
 export async function readPostsByUser(username, limit = 12, page = 1, tag) {
   const myHeaders = new Headers();
   myHeaders.append("X-Noroff-API-Key", API_KEY);
