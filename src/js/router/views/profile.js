@@ -3,80 +3,14 @@ import { setLogoutListener } from '../../ui/global/logout';
 import { readProfile } from '../../api/profile/read';
 import { readPostsByUser } from '../../api/post/read';
 import { onDeletePost } from "../../ui/post/delete";
+import { onUpdateProfile } from '../../ui/profile/update';
 
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
 });
 
 authGuard();
-
-function getAuthorIDFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('authorID');
-}
-
-function getLoggedInUserName() {
-    return localStorage.getItem('userID');
-}
-
-const authorID = getAuthorIDFromURL();
-const loggedInUserName = getLoggedInUserName();
-const isOwnProfile = !authorID || authorID === loggedInUserName;
-
-function toggleEditProfileSections(isOwnProfile) {
-    const editProfileSection = document.getElementById('editProfileSection');
-    const updateProfileForm = document.getElementById('updateProfileForm');
-
-    if (editProfileSection && updateProfileForm) {
-        if (isOwnProfile) {
-            editProfileSection.style.display = 'block';
-            updateProfileForm.style.display = 'none';
-        } else {
-            editProfileSection.style.display = 'none';
-            updateProfileForm.style.display = 'none';
-        }
-    } else {
-        console.warn('Edit profile elements not found in the DOM.');
-    }
-}
-
-toggleEditProfileSections(isOwnProfile);
-
-if (isOwnProfile) {
-    const editProfileButton = document.getElementById('editProfileButton');
-    const updateProfileForm = document.getElementById('updateProfileForm');
-
-    if (editProfileButton && updateProfileForm) {
-        /**
-         * Toggles the visibility of the update profile form.
-         */
-        function toggleUpdateProfileForm() {
-            if (updateProfileForm.style.display === 'none' || updateProfileForm.style.display === '') {
-                updateProfileForm.style.display = 'block';
-            } else {
-                updateProfileForm.style.display = 'none';
-            }
-        }
-
-        editProfileButton.addEventListener('click', toggleUpdateProfileForm);
-    } else {
-        console.warn('Edit profile button or update profile form not found.');
-    }
-}
-
-async function loadProfile() {
-    const username = isOwnProfile ? loggedInUserName : authorID;
-    try {
-        const profileData = await readProfile(username);
-        displayProfileData(profileData);
-    } catch (error) {
-        console.error('Error fetching profile data:', error);
-    }
-}
-
-loadProfile();
-
-
+// Function to escape any HTML characters to prevent XSS
 function escapeHTML(str) {
     if (!str) return '';
     return str.replace(/[&<>'"]/g, function (tag) {
@@ -91,126 +25,138 @@ function escapeHTML(str) {
     });
 }
 
-function displayProfileData(profileData) {
+
+async function loadProfile() {
+    const authorID = getAuthorIDFromURL();
+    const loggedInUserName = getLoggedInUserName();
+    const isOwnProfile = !authorID || authorID === loggedInUserName;
+    const username = isOwnProfile ? loggedInUserName : authorID;
+
+    try {
+        const profileResponse = await readProfile(username);
+        const profileData = profileResponse.data;
+
+        // Render the profile data
+        displayProfileData(profileData, isOwnProfile);
+
+        // Toggle visibility of edit and update forms
+        toggleEditProfileSections(isOwnProfile);
+
+        // Pass isOwnProfile to loadUserPosts
+        loadUserPosts(isOwnProfile);
+    } catch (error) {
+        console.error('Error fetching profile data:', error);
+    }
+}
+
+loadProfile();
+
+function getAuthorIDFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('authorID');
+}
+
+function getLoggedInUserName() {
+    return localStorage.getItem('userID');
+}
+
+// Function to toggle visibility of edit and update sections
+function toggleEditProfileSections(isOwnProfile) {
+    const editProfileSection = document.getElementById('editProfileSection');
+    const updateProfileForm = document.getElementById('updateProfileForm');
+
+    if (editProfileSection && updateProfileForm) {
+        if (isOwnProfile) {
+            // Show edit button and hide update form initially
+            editProfileSection.style.display = 'block';
+            updateProfileForm.style.display = 'none';
+
+            const editProfileButton = document.getElementById('editProfileButton');
+            if (editProfileButton) {
+                editProfileButton.addEventListener('click', () => {
+                    updateProfileForm.style.display = updateProfileForm.style.display === 'none' || !updateProfileForm.style.display ? 'block' : 'none';
+                });
+            }
+        } else {
+            editProfileSection.style.display = 'none';
+            updateProfileForm.style.display = 'none';
+        }
+    }
+}
+
+// Function to display the profile data
+function displayProfileData(profileData = {}, isOwnProfile) {
     const profileContainer = document.getElementById('profileContainer');
     const profileBannerImage = document.getElementById('profileBannerImage');
 
     const profileName = escapeHTML(profileData.name || 'Anonymous');
-    const profileAvatar = (profileData.avatar && profileData.avatar.url) ? profileData.avatar.url : '/images/default-avatar.png';
+    const profileAvatar = profileData.avatar && profileData.avatar.url ? profileData.avatar.url : '/images/default-avatar.png';
     const profileBio = escapeHTML(profileData.bio || '');
 
-    const profileBanner = (profileData.banner && profileData.banner.url) ? profileData.banner.url : '/images/default-banner.png';
+    const profileBanner = profileData.banner && profileData.banner.url ? profileData.banner.url : '/images/default-banner.png';
+
     profileBannerImage.src = profileBanner;
-    profileBannerImage.alt = 'Profile Banner';
+    profileBannerImage.alt = profileData.banner && profileData.banner.alt ? profileData.banner.alt : 'Profile Banner';
 
     const profileHTML = `
       <img class="profile-image" src="${profileAvatar}" alt="${profileName}'s Avatar">
       <h2 class="profile-name">${profileName}</h2>
       <p class="profile-bio">${profileBio}</p>
-      ${isOwnProfile ? `
-      <div class="profile-edit" id="editProfileSection">
-        <button id="editProfileButton">Edit profile</button>
-      </div>
-      <form name="updateProfile" id="updateProfileForm" style="display: none;">
-        <div>
-          <label for="bio">Bio</label>
-          <input id="bio" type="text" name="bio" required value="${profileBio}" />
-        </div>
-        <div>
-          <label for="avatar">Avatar URL</label>
-          <input id="avatar" type="text" name="avatar" required value="${escapeHTML(profileData.avatar && profileData.avatar.url ? profileData.avatar.url : '')}" />
-        </div>
-        <div>
-          <label for="banner">Banner URL</label>
-          <input id="banner" type="text" name="banner" required value="${escapeHTML(profileData.banner && profileData.banner.url ? profileData.banner.url : '')}" />
-        </div>
-        <button type="submit">Update Profile</button>
-      </form>
-      ` : ''}
     `;
 
     profileContainer.innerHTML = profileHTML;
 
+    // Attach event listener for updating the profile if it's the user's own profile
     if (isOwnProfile) {
-        const editProfileButton = document.getElementById('editProfileButton');
         const updateProfileForm = document.getElementById('updateProfileForm');
-
-        if (editProfileButton && updateProfileForm) {
-            function toggleUpdateProfileForm() {
-                if (updateProfileForm.style.display === 'none' || updateProfileForm.style.display === '') {
-                    updateProfileForm.style.display = 'block';
-                } else {
-                    updateProfileForm.style.display = 'none';
-                }
-            }
-
-            editProfileButton.addEventListener('click', toggleUpdateProfileForm);
-        } else {
-            console.warn('Edit profile button or update profile form not found.');
+        if (updateProfileForm) {
+            updateProfileForm.addEventListener('submit', onUpdateProfile);
         }
     }
 }
 
-async function loadUserPosts() {
-    const username = isOwnProfile ? loggedInUserName : authorID;
-    try {
+// Load user posts with isOwnProfile
+async function loadUserPosts(isOwnProfile) {
+    const username = isOwnProfile ? getLoggedInUserName() : getAuthorIDFromURL();
 
+    try {
         const response = await readPostsByUser(username, 12, 1);
         const userPosts = response.data || response;
-        displayUserPosts(userPosts);
+        displayUserPosts(userPosts, isOwnProfile);
     } catch (error) {
         console.error('Error fetching user posts:', error);
     }
 }
 
-loadUserPosts();
-
-function displayUserPosts(posts) {
+// Function to display user posts
+function displayUserPosts(posts, isOwnProfile) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
 
     posts.forEach(post => {
-        const postMedia = post.media && post.media.url
-            ? `<img class="post-media" src="${post.media.url}" alt="${post.media.alt || 'Post media'}">`
-            : '';
-
-        const authorAvatar = post.author.avatar && post.author.avatar.url
-            ? `<img class="author-img" src="${post.author.avatar.url}" alt="${post.author.name}'s avatar">`
-            : '<img class="author-img" src="/images/default-avatar.png" alt="Default avatar">';
-
-        const deleteButtonHTML = isOwnProfile
-            ? `<button class="delete-btn" data-post-id="${post.id}">Delete</button>`
-            : '';
-
         const postHTML = `
         <div class="post">
           <div class="author" data-authorID="${post.author.name}">
-          ${authorAvatar}
+            <img class="author-img" src="${post.author.avatar?.url || '/images/default-avatar.png'}" alt="${post.author.name}'s avatar">
             <span class="author-name">${post.author.name}</span>
           </div>
           <a href="/post/?postID=${post.id}" data-postID="${post.id}">
-            ${postMedia}
+            <img class="post-media" src="${post.media?.url || ''}" alt="${post.media?.alt || 'Post media'}">
             <h2 class="post-title">${post.title}</h2>
             <p class="post-body">${post.body}</p>
           </a>
-          ${deleteButtonHTML}
-        </div>
-      `;
+          ${isOwnProfile ? `<button class="delete-btn" data-post-id="${post.id}">Delete</button>` : ''}
+        </div>`;
         postsContainer.innerHTML += postHTML;
     });
 
+    // Attach delete logic only if it's the user's own profile
     if (isOwnProfile) {
-        const deleteButtons = document.querySelectorAll(".delete-btn")
-        deleteButtons.forEach(button => {
+        document.querySelectorAll(".delete-btn").forEach(button => {
             const postID = button.dataset.postId;
-            button.addEventListener('click', function() {
-                console.log("You clicked me!")
-                console.log(postID)
+            button.addEventListener('click', () => {
                 onDeletePost(postID);
-
             });
         });
-        
-        
     }
 }

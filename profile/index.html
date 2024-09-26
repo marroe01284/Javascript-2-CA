@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noroff FED2 JS2 CA</title>
     <script type="module" src="/src/app.js"></script>
@@ -18,20 +17,55 @@
         <li><a href="/post/create/">Create Post</a></li>
       </ul>
     </nav>
-    <form name="updateProfile">
-      <button>Update Profile</button>
-    </form>
+
     <main class="main-content">
       <aside class="sidebar">
         <div class="profile-container" id="profileContainer">
+          <!-- Profile information (Avatar, Name, Bio) will be rendered here -->
         </div>
       </aside>
+
       <section class="content">
+        <!-- Profile Banner -->
         <div class="profile-banner">
-          <img src="" alt="" id="profileBannerImage">
+          <img src="" alt="Profile Banner" id="profileBannerImage">
         </div>
+
+        <!-- User Posts will be rendered here -->
         <div id="posts-container">
         </div>
+
+        <!-- Edit Profile Form, initially hidden -->
+        <div id="editProfileSection" style="display: none">
+          <button id="editProfileButton">Edit Profile</button>
+        </div>
+
+        <!-- Update Profile Form, initially hidden -->
+       <!-- Update Profile Form (Updated) -->
+<form id="updateProfileForm" style="display: none;">
+  <div>
+    <label for="bio">Bio</label>
+    <input id="bio" type="text" name="bio" required>
+  </div>
+  <div>
+    <label for="avatar-url">Avatar URL</label>
+    <input id="avatar-url" type="text" name="avatar-url" required>
+  </div>
+  <div>
+    <label for="avatar-alt">Avatar Alt Text</label>
+    <input id="avatar-alt" type="text" name="avatar-alt">
+  </div>
+  <div>
+    <label for="banner-url">Banner URL</label>
+    <input id="banner-url" type="text" name="banner-url" required>
+  </div>
+  <div>
+    <label for="banner-alt">Banner Alt Text</label>
+    <input id="banner-alt" type="text" name="banner-alt">
+  </div>
+  <button type="submit">Update Profile</button>
+</form>
+
       </section>
     </main>
   </body>
