@@ -1,55 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
-    <script type="module" src="/src/app.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noroff FED2 JS2 CA</title>
+  <script type="module" src="/src/app.js"></script>
+</head>
 
-  <body>
-    <nav id="profileNav">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/profile/">My Profile</a></li>
-        <li><a href="/auth/login/">Login</a></li>
-        <li><a href="/auth/register/">Register</a></li>
-        <li><a href="/post/create/">Create Post</a></li>
-      </ul>
-    </nav>
+<body>
+<nav id="profileNav">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/profile/">My Profile</a></li>
+    <li><a href="/auth/login/">Login</a></li>
+    <li><a href="/auth/register/">Register</a></li>
+    <li><a href="/post/create/">Create Post</a></li>
+  </ul>
+</nav>
 
+<h1>Profile</h1>
 
-=======
-    <h1>Profile</h1>
+<div id="editProfileSection" style="display: none">
+  <button id="editProfileButton">Edit Profile</button>
+</div>
 
-    <form name="updateProfile">
-      <button>Update Profile</button>
-    </form>
-
-    <main class="main-content">
-      <aside class="sidebar">
-        <div class="profile-container" id="profileContainer">
-          <!-- Profile information (Avatar, Name, Bio) will be rendered here -->
-        </div>
-      </aside>
-
-      <section class="content">
-        <!-- Profile Banner -->
-        <div class="profile-banner">
-          <img src="" alt="Profile Banner" id="profileBannerImage">
-        </div>
-
-        <!-- User Posts will be rendered here -->
-        <div id="posts-container">
-        </div>
-
-        <!-- Edit Profile Form, initially hidden -->
-        <div id="editProfileSection" style="display: none">
-          <button id="editProfileButton">Edit Profile</button>
-        </div>
-
-        <!-- Update Profile Form, initially hidden -->
-       <!-- Update Profile Form (Updated) -->
 <form id="updateProfileForm" style="display: none;">
   <div>
     <label for="bio">Bio</label>
@@ -74,8 +48,24 @@
   <button type="submit">Update Profile</button>
 </form>
 
-      </section>
-    </main>
+<form name="updateProfile">
+  <button>Update Profile</button>
+</form>
 
-  </body>
+<main class="main-content">
+  <aside class="sidebar">
+    <div class="profile-container" id="profileContainer">
+    </div>
+  </aside>
+
+  <section class="content">
+    <div class="profile-banner">
+      <img src="" alt="Profile Banner" id="profileBannerImage">
+    </div>
+
+    <div id="posts-container"></div>
+  </section>
+</main>
+
+</body>
 </html>

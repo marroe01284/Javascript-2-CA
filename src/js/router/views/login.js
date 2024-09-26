@@ -1,5 +1,6 @@
-import { onLogin } from "../../ui/auth/login"
-import { setLogoutListener } from "../../ui/global/logout.js";
+import {onLogin} from "../../ui/auth/login"
+import {setLogoutListener} from "../../ui/global/logout.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     setLogoutListener();
 });

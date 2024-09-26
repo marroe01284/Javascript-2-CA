@@ -1,9 +1,10 @@
-import { authGuard } from "../../utilities/authGuard";
-import { readPosts } from "../../api/post/read"; 
-import { setLogoutListener } from '../../ui/global/logout';
+import {authGuard} from "../../utilities/authGuard";
+import {readPosts} from "../../api/post/read";
+import {setLogoutListener} from '../../ui/global/logout';
+
 authGuard();
 document.addEventListener('DOMContentLoaded', () => {
-    setLogoutListener(); 
+  setLogoutListener();
 });
 
 const postsContainer = document.getElementById("posts-container");
@@ -16,13 +17,13 @@ async function renderPosts() {
     postsContainer.innerHTML = '';
 
     posts.forEach(post => {
-      const postMedia = post.media 
-        ? `<img class="post-media" src="${post.media.url}" alt="${post.media.alt || 'Post media'}">`
-        : ''; 
+      const postMedia = post.media
+          ? `<img class="post-media" src="${post.media.url}" alt="${post.media.alt || 'Post media'}">`
+          : '';
 
-      const authorAvatar = post.author.avatar 
-        ? `<img class="author-img" src="${post.author.avatar.url}" alt="${post.author.name}'s avatar">`
-        : ''; 
+      const authorAvatar = post.author.avatar
+          ? `<img class="author-img" src="${post.author.avatar.url}" alt="${post.author.name}'s avatar">`
+          : '';
 
       const postElement = document.createElement('div');
       postElement.classList.add('post');

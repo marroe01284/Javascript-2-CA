@@ -1,16 +1,16 @@
-import { authGuard } from "../../utilities/authGuard";
-import { setLogoutListener } from '../../ui/global/logout';
-import { readProfile } from '../../api/profile/read';
-import { readPostsByUser } from '../../api/post/read';
-import { onDeletePost } from "../../ui/post/delete";
-import { onUpdateProfile } from '../../ui/profile/update';
+import {authGuard} from "../../utilities/authGuard";
+import {setLogoutListener} from '../../ui/global/logout';
+import {readProfile} from '../../api/profile/read';
+import {readPostsByUser} from '../../api/post/read';
+import {onDeletePost} from "../../ui/post/delete";
+import {onUpdateProfile} from '../../ui/profile/update';
 
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
 });
 
 authGuard();
-// Function to escape any HTML characters to prevent XSS
+
 function escapeHTML(str) {
     if (!str) return '';
     return str.replace(/[&<>'"]/g, function (tag) {
@@ -25,7 +25,6 @@ function escapeHTML(str) {
     });
 }
 
-
 async function loadProfile() {
     const authorID = getAuthorIDFromURL();
     const loggedInUserName = getLoggedInUserName();
@@ -36,13 +35,10 @@ async function loadProfile() {
         const profileResponse = await readProfile(username);
         const profileData = profileResponse.data;
 
-        // Render the profile data
         displayProfileData(profileData, isOwnProfile);
 
-        // Toggle visibility of edit and update forms
         toggleEditProfileSections(isOwnProfile);
 
-        // Pass isOwnProfile to loadUserPosts
         loadUserPosts(isOwnProfile);
     } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -60,14 +56,12 @@ function getLoggedInUserName() {
     return localStorage.getItem('userID');
 }
 
-// Function to toggle visibility of edit and update sections
 function toggleEditProfileSections(isOwnProfile) {
     const editProfileSection = document.getElementById('editProfileSection');
     const updateProfileForm = document.getElementById('updateProfileForm');
 
     if (editProfileSection && updateProfileForm) {
         if (isOwnProfile) {
-            // Show edit button and hide update form initially
             editProfileSection.style.display = 'block';
             updateProfileForm.style.display = 'none';
 
@@ -84,7 +78,6 @@ function toggleEditProfileSections(isOwnProfile) {
     }
 }
 
-// Function to display the profile data
 function displayProfileData(profileData = {}, isOwnProfile) {
     const profileContainer = document.getElementById('profileContainer');
     const profileBannerImage = document.getElementById('profileBannerImage');
@@ -106,7 +99,6 @@ function displayProfileData(profileData = {}, isOwnProfile) {
 
     profileContainer.innerHTML = profileHTML;
 
-    // Attach event listener for updating the profile if it's the user's own profile
     if (isOwnProfile) {
         const updateProfileForm = document.getElementById('updateProfileForm');
         if (updateProfileForm) {
@@ -115,7 +107,6 @@ function displayProfileData(profileData = {}, isOwnProfile) {
     }
 }
 
-// Load user posts with isOwnProfile
 async function loadUserPosts(isOwnProfile) {
     const username = isOwnProfile ? getLoggedInUserName() : getAuthorIDFromURL();
 
@@ -128,11 +119,9 @@ async function loadUserPosts(isOwnProfile) {
     }
 }
 
-// Function to display user posts
 function displayUserPosts(posts, isOwnProfile) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
-
     posts.forEach(post => {
         const postHTML = `
         <div class="post">
@@ -150,7 +139,6 @@ function displayUserPosts(posts, isOwnProfile) {
         postsContainer.innerHTML += postHTML;
     });
 
-    // Attach delete logic only if it's the user's own profile
     if (isOwnProfile) {
         document.querySelectorAll(".delete-btn").forEach(button => {
             const postID = button.dataset.postId;
