@@ -8,18 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const postsContainer = document.getElementById("posts-container");
 
-/**
- * Fetches posts data from the API and renders them into the DOM.
- * 
- * The function fetches posts using the `readPosts` function and iterates 
- * over each post to dynamically create and inject HTML content for each 
- * post into the `postsContainer`. If an error occurs during the fetch 
- * operation, it logs the error to the console.
- *
- * @async
- * @function renderPosts
- * @returns {Promise<void>}
- */
 async function renderPosts() {
   try {
     const response = await readPosts();
