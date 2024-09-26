@@ -1,1 +1,86 @@
 @import url(_reset.css);
+
+#loginDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginDiv form label {
+    display: flex;
+    margin: 0 0 4px 0;
+}
+
+#loginDiv form input {
+    margin: 0 0 16px 0;
+    width: 190px;
+}
+
+#loginDiv form button {
+    width: 88px;
+    border: 0;
+    border-radius: 4px;
+    background-color: blue;
+    color: white;
+    height: 24px;
+    margin: 0 0 8px 0;
+    cursor: pointer;
+}
+
+#loginDiv form button:hover {
+    opacity: 0.7;
+}
+
+#loginDiv form a {
+    text-decoration: none;
+    color: black
+}
+
+#loginDiv form a:hover {
+    text-decoration: underline;
+}
+
+#btnDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+#profileNav {
+    display: flex;
+    justify-content: center;
+}
+
+#profileNav ul {
+    display: flex;
+    gap: 16px;
+    list-style-type: none;
+    padding: 0;
+}
+
+#profileNav a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#profileNav a:hover {
+    text-decoration: underline;
+}
+
+#homeNav {
+    display: flex;
+    gap: 16px;
+}
+
+#homeNav a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+#homeNav a:hover {
+    text-decoration: underline;
+}

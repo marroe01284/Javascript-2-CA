@@ -2,14 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noroff FED2 JS2 CA</title>
     <script type="module" src="/src/app.js"></script>
   </head>
+
   <body>
-    <h1>Profile</h1>
-    <nav>
+    <nav id="profileNav">
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/profile/">My Profile</a></li>
@@ -18,9 +17,13 @@
         <li><a href="/post/create/">Create Post</a></li>
       </ul>
     </nav>
+
+    <h1>Profile</h1>
+
     <form name="updateProfile">
       <button>Update Profile</button>
     </form>
+
     <main class="main-content">
       <aside class="sidebar">
         <div class="profile-container" id="profileContainer">
@@ -34,5 +37,6 @@
         </div>
       </section>
     </main>
+
   </body>
 </html>
