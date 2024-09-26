@@ -36,7 +36,7 @@ function toggleEditProfileSections(isOwnProfile) {
             updateProfileForm.style.display = 'none';
         }
     } else {
-        console.warn('Edit profile elements not found in the DOM.');
+        console.warn('Edit profile elements not found.');
     }
 }
 
@@ -201,7 +201,6 @@ function displayUserPosts(posts) {
                 console.log("You clicked me!")
                 console.log(postID)
                 onDeletePost(postID);
-
             });
         });
     }
