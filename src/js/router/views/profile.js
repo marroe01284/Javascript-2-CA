@@ -1,9 +1,9 @@
-import { authGuard } from "../../utilities/authGuard";
-import { setLogoutListener } from '../../ui/global/logout';
-import { readProfile } from '../../api/profile/read';
-import { readPostsByUser } from '../../api/post/read';
-import { onDeletePost } from "../../ui/post/delete";
-import { onUpdateProfile } from '../../ui/profile/update';
+import {authGuard} from "../../utilities/authGuard";
+import {setLogoutListener} from '../../ui/global/logout';
+import {readProfile} from '../../api/profile/read';
+import {readPostsByUser} from '../../api/post/read';
+import {onDeletePost} from "../../ui/post/delete";
+import {onUpdateProfile} from '../../ui/profile/update';
 
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
@@ -42,17 +42,17 @@ function escapeHTML(str) {
  */
 async function loadProfile() {
     const authorID = getAuthorIDFromURL();
-    const loggedInUserName = getLoggedInUserName();
-    const isOwnProfile = !authorID || authorID === loggedInUserName;
-    const username = isOwnProfile ? loggedInUserName : authorID;
+    const loggedInUserName = loggedInUser();
+    const ownProfile = !authorID || authorID === loggedInUserName;
+    const username = ownProfile ? loggedInUserName : authorID;
 
     try {
         const profileResponse = await readProfile(username);
         const profileData = profileResponse.data;
 
-        displayProfileData(profileData, isOwnProfile);
-        toggleEditProfileSections(isOwnProfile);
-        loadUserPosts(isOwnProfile);
+        displayProfileData(profileData, ownProfile);
+        editProfile(ownProfile);
+        loadUserPosts(ownProfile);
     } catch (error) {
         console.error('Error fetching profile data:', error);
     }
@@ -74,26 +74,26 @@ function getAuthorIDFromURL() {
 /**
  * Retrieves the logged-in user's ID from local storage.
  *
- * @function getLoggedInUserName
+ * @function loggedInUser
  * @returns {string|null} The logged-in user's ID or null if not found.
  */
-function getLoggedInUserName() {
+function loggedInUser() {
     return localStorage.getItem('userID');
 }
 
 /**
  * Toggles the visibility of the edit and update profile sections based on ownership of the profile.
  *
- * @function toggleEditProfileSections
- * @param {boolean} isOwnProfile - Whether the profile belongs to the logged-in user.
+ * @function editProfile
+ * @param {boolean} ownProfile - Whether the profile belongs to the logged-in user.
  * @returns {void}
  */
-function toggleEditProfileSections(isOwnProfile) {
+function editProfile(ownProfile) {
     const editProfileSection = document.getElementById('editProfileSection');
     const updateProfileForm = document.getElementById('updateProfileForm');
 
     if (editProfileSection && updateProfileForm) {
-        if (isOwnProfile) {
+        if (ownProfile) {
             editProfileSection.style.display = 'block';
             updateProfileForm.style.display = 'none';
 
@@ -115,10 +115,10 @@ function toggleEditProfileSections(isOwnProfile) {
  *
  * @function displayProfileData
  * @param {Object} profileData - The profile data to display.
- * @param {boolean} isOwnProfile - Whether the profile belongs to the logged-in user.
+ * @param {boolean} ownProfile - Whether the profile belongs to the logged-in user.
  * @returns {void}
  */
-function displayProfileData(profileData = {}, isOwnProfile) {
+function displayProfileData(profileData = {}, ownProfile) {
     const profileContainer = document.getElementById('profileContainer');
     const profileBannerImage = document.getElementById('profileBannerImage');
 
@@ -139,7 +139,7 @@ function displayProfileData(profileData = {}, isOwnProfile) {
 
     profileContainer.innerHTML = profileHTML;
 
-    if (isOwnProfile) {
+    if (ownProfile) {
         const updateProfileForm = document.getElementById('updateProfileForm');
         if (updateProfileForm) {
             updateProfileForm.addEventListener('submit', onUpdateProfile);
@@ -152,17 +152,17 @@ function displayProfileData(profileData = {}, isOwnProfile) {
  *
  * @async
  * @function loadUserPosts
- * @param {boolean} isOwnProfile - Whether the posts belong to the logged-in user.
+ * @param {boolean} ownProfile - Whether the posts belong to the logged-in user.
  * @returns {Promise<void>} A promise that resolves when the posts are loaded and displayed.
  * @throws Will log an error if posts fetching fails.
  */
-async function loadUserPosts(isOwnProfile) {
-    const username = isOwnProfile ? getLoggedInUserName() : getAuthorIDFromURL();
+async function loadUserPosts(ownProfile) {
+    const username = ownProfile ? loggedInUser() : getAuthorIDFromURL();
 
     try {
         const response = await readPostsByUser(username, 12, 1);
         const userPosts = response.data || response;
-        displayUserPosts(userPosts, isOwnProfile);
+        displayUserPosts(userPosts, ownProfile);
     } catch (error) {
         console.error('Error fetching user posts:', error);
     }
@@ -173,10 +173,10 @@ async function loadUserPosts(isOwnProfile) {
  *
  * @function displayUserPosts
  * @param {Array} posts - The array of posts to display.
- * @param {boolean} isOwnProfile - Whether the posts belong to the logged-in user.
+ * @param {boolean} ownProfile - Whether the posts belong to the logged-in user.
  * @returns {void}
  */
-function displayUserPosts(posts, isOwnProfile) {
+function displayUserPosts(posts, ownProfile) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
     posts.forEach(post => {
@@ -191,12 +191,12 @@ function displayUserPosts(posts, isOwnProfile) {
             <h2 class="post-title">${post.title}</h2>
             <p class="post-body">${post.body}</p>
           </a>
-          ${isOwnProfile ? `<button class="delete-btn" data-post-id="${post.id}">Delete</button>` : ''}
+          ${ownProfile ? `<button class="delete-btn" data-post-id="${post.id}">Delete</button>` : ''}
         </div>`;
         postsContainer.innerHTML += postHTML;
     });
 
-    if (isOwnProfile) {
+    if (ownProfile) {
         document.querySelectorAll(".delete-btn").forEach(button => {
             const postID = button.dataset.postId;
             button.addEventListener('click', () => {

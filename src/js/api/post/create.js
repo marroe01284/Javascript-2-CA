@@ -1,6 +1,7 @@
 import {API_SOCIAL_POSTS} from "../constants";
 import {getKey} from "../auth/key";
 import {headers as createdHeaders} from "../headers";
+
 /**
  * Creates a new post by sending a POST request with the title, body, tags, and media.
  *
@@ -38,14 +39,14 @@ export async function createPost({title, body, tags, media}) {
         };
     }
 
-    const requestOptions = {
+    const headerOptions = {
         method: 'POST',
         headers: myHeaders,
         body: JSON.stringify(postData),
         redirect: 'follow'
     };
     try {
-        const response = await fetch(API_SOCIAL_POSTS, requestOptions);
+        const response = await fetch(API_SOCIAL_POSTS, headerOptions);
         const result = await response.json();
         if (response.ok) {
             alert("Poost created!");

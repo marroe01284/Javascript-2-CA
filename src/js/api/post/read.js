@@ -1,5 +1,6 @@
 import {API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES} from "../constants";
 import {getKey} from "../auth/key";
+
 /**
  * Fetches a single post by its ID.
  *
@@ -16,14 +17,14 @@ export async function readPost(id) {
     const token = await getKey();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
+    const headerOptions = {
         method: "GET",
         headers: myHeaders,
         redirect: "follow"
     };
 
     try {
-        const response = await fetch(`${API_SOCIAL_POSTS}/${id}?_author=true`, requestOptions);
+        const response = await fetch(`${API_SOCIAL_POSTS}/${id}?_author=true`, headerOptions);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch post: ${response.statusText}`);
@@ -45,14 +46,14 @@ export async function readPosts(limit = 12, page = 1,) {
     const token = await getKey();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
+    const headerOptions = {
         method: "GET",
         headers: myHeaders,
         redirect: "follow"
     };
 
     try {
-        const response = await fetch(API_SOCIAL_POSTS + `?limit=${limit}&page=${page}&_author=true`, requestOptions);
+        const response = await fetch(API_SOCIAL_POSTS + `?limit=${limit}&page=${page}&_author=true`, headerOptions);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch posts: ${response.statusText}`);
@@ -79,7 +80,7 @@ export async function readPostsByUser(username, limit = 12, page = 1, tag) {
         queryParams += `&tag=${encodeURIComponent(tag)}`;
     }
 
-    const requestOptions = {
+    const headerOptions = {
         method: "GET",
         headers: myHeaders,
         redirect: "follow",
@@ -88,7 +89,7 @@ export async function readPostsByUser(username, limit = 12, page = 1, tag) {
     try {
         const apiUrl = `${API_SOCIAL_PROFILES}/${encodeURIComponent(username)}/posts${queryParams}`;
 
-        const response = await fetch(apiUrl, requestOptions);
+        const response = await fetch(apiUrl, headerOptions);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch posts for user ${username}: ${response.statusText}`);

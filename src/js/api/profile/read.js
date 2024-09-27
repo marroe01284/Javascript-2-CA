@@ -1,5 +1,6 @@
 import {API_SOCIAL_PROFILES, API_KEY} from "../constants";
 import {getKey} from "../auth/key";
+
 /**
  * Fetches the profile of a user by their username.
  *
@@ -16,14 +17,14 @@ export async function readProfile(username) {
     const token = await getKey();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
+    const headerOptions = {
         method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
     };
 
     try {
-        const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, requestOptions);
+        const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, headerOptions);
         if (!response.ok) {
             throw new Error(`Failed to fetch profile: ${response.statusText}`);
         }
