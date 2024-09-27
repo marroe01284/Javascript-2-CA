@@ -129,7 +129,7 @@ function displayUserPosts(posts, isOwnProfile) {
             <img class="author-img" src="${post.author.avatar?.url || '/images/default-avatar.png'}" alt="${post.author.name}'s avatar">
             <span class="author-name">${post.author.name}</span>
           </div>
-          <a href="/post/?postID=${post.id}" data-postID="${post.id}">
+          <a class="profile-posts" href="/post/?postID=${post.id}" data-postID="${post.id}">
             <img class="post-media" src="${post.media?.url || ''}" alt="${post.media?.alt || 'Post media'}">
             <h2 class="post-title">${post.title}</h2>
             <p class="post-body">${post.body}</p>

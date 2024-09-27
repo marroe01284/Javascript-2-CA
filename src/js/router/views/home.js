@@ -33,7 +33,7 @@ async function renderPosts() {
         ${authorAvatar}
           <span class="author-name">${post.author.name}</span>
         </a>
-        <a href="/post/?postID=${post.id}" data-postID="${post.id}">
+        <a id="post-content" href="/post/?postID=${post.id}" data-postID="${post.id}">
           ${postMedia}
           <h2 class="post-title">${post.title}</h2>
           <p class="post-body">${post.body}</p>
