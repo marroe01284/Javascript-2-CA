@@ -1,6 +1,14 @@
 import {API_SOCIAL_POSTS, API_KEY, API_SOCIAL_PROFILES} from "../constants";
 import {getKey} from "../auth/key";
-
+/**
+ * Fetches a single post by its ID.
+ *
+ * @async
+ * @function readPost
+ * @param {string} id - The ID of the post to retrieve.
+ * @returns {Promise<Object>} A promise that resolves to the post data.
+ * @throws Will throw an error if the fetch operation fails.
+ */
 export async function readPost(id) {
     const myHeaders = new Headers();
     myHeaders.append("X-Noroff-API-Key", API_KEY);

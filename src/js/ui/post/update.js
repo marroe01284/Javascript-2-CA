@@ -1,18 +1,24 @@
-// src/js/ui/post/update.js
-import { updatePost } from '../../api/post/update'; // Import the API call for updating a post
 
-// Function to handle updating the post
+import { updatePost } from '../../api/post/update';
+/**
+ * Handles the post update form submission.
+ *
+ * @async
+ * @function onUpdatePost
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>} A promise that resolves once the post is updated.
+ * @throws Will display an alert if the post update fails.
+ */
 export async function onUpdatePost(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
-    const postID = getPostIDFromURL(); // Assuming you have a function to get the post ID from the URL
+    const postID = getPostIDFromURL();
     const title = document.getElementById('title').value;
     const body = document.getElementById('body').value;
-    const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim()); // Convert tags to an array
+    const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim());
     const mediaUrl = document.getElementById('media-url').value;
     const mediaAlt = document.getElementById('media-alt').value;
 
-    // Construct the updated post object
     const updatedPost = {
         title: title || "",
         body: body || "",
@@ -24,11 +30,11 @@ export async function onUpdatePost(event) {
     };
 
     try {
-        // Send the updated post data via the API
+
         await updatePost(postID, updatedPost);
         alert('Post updated successfully!');
 
-        // Redirect to the post page or another relevant page after updating
+
         window.location.href = `/post/?postID=${postID}`;
     } catch (error) {
         console.error('Error updating post:', error);
@@ -36,7 +42,7 @@ export async function onUpdatePost(event) {
     }
 }
 
-// Helper function to get the post ID from the URL
+
 function getPostIDFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('postID');

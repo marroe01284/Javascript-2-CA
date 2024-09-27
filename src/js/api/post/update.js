@@ -1,4 +1,4 @@
-// src/js/api/post/update.js
+
 import { API_SOCIAL_POSTS, API_KEY } from "../constants";
 import { getKey } from "../auth/key";
 

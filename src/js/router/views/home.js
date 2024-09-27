@@ -1,6 +1,6 @@
-import {authGuard} from "../../utilities/authGuard";
-import {readPosts} from "../../api/post/read";
-import {setLogoutListener} from '../../ui/global/logout';
+import { authGuard } from "../../utilities/authGuard";
+import { readPosts } from "../../api/post/read";
+import { setLogoutListener } from '../../ui/global/logout';
 
 authGuard();
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const postsContainer = document.getElementById("posts-container");
-
+/**
+ * Fetches and renders posts on the page.
+ *
+ * @async
+ * @function renderPosts
+ * @returns {Promise<void>} A promise that resolves once the posts are rendered.
+ * @throws Will throw an error if fetching or rendering the posts fails.
+ */
 async function renderPosts() {
   try {
     const response = await readPosts();
@@ -18,12 +25,12 @@ async function renderPosts() {
 
     posts.forEach(post => {
       const postMedia = post.media
-          ? `<img class="post-media" src="${post.media.url}" alt="${post.media.alt || 'Post media'}">`
-          : '';
+        ? `<img class="post-media" src="${post.media.url}" alt="${post.media.alt || 'Post media'}">`
+        : '';
 
       const authorAvatar = post.author.avatar
-          ? `<img class="author-img" src="${post.author.avatar.url}" alt="${post.author.name}'s avatar">`
-          : '';
+        ? `<img class="author-img" src="${post.author.avatar.url}" alt="${post.author.name}'s avatar">`
+        : '';
 
       const postElement = document.createElement('div');
       postElement.classList.add('post');

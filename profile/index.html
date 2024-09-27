@@ -1,73 +1,75 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noroff FED2 JS2 CA</title>
   <script type="module" src="/src/app.js"></script>
 </head>
 
 <body>
-<nav id="profileNav">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/profile/">My Profile</a></li>
-    <li><a href="/auth/login/">Login</a></li>
-    <li><a href="/auth/register/">Register</a></li>
-    <li><a href="/post/create/">Create Post</a></li>
-  </ul>
-</nav>
+  <nav id="profileNav">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile/">My Profile</a></li>
+      <li><a href="/auth/login/">Login</a></li>
+      <li><a href="/auth/register/">Register</a></li>
+      <li><a href="/post/create/">Create Post</a></li>
+    </ul>
+  </nav>
 
-<h1>Profile</h1>
+  <h1>Profile</h1>
 
-<div id="editProfileSection" style="display: none">
-  <button id="editProfileButton">Edit Profile</button>
-</div>
+  <div id="editProfileSection" style="display: none">
+    <button id="editProfileButton">Edit Profile</button>
+  </div>
 
-<form id="updateProfileForm" style="display: none;">
-  <div>
-    <label for="bio">Bio</label>
-    <input id="bio" type="text" name="bio" required>
-  </div>
-  <div>
-    <label for="avatar-url">Avatar URL</label>
-    <input id="avatar-url" type="text" name="avatar-url" required>
-  </div>
-  <div>
-    <label for="avatar-alt">Avatar Alt Text</label>
-    <input id="avatar-alt" type="text" name="avatar-alt">
-  </div>
-  <div>
-    <label for="banner-url">Banner URL</label>
-    <input id="banner-url" type="text" name="banner-url" required>
-  </div>
-  <div>
-    <label for="banner-alt">Banner Alt Text</label>
-    <input id="banner-alt" type="text" name="banner-alt">
-  </div>
-  <button type="submit">Update Profile</button>
-</form>
-
-<form name="updateProfile">
-  <button>Update Profile</button>
-</form>
-
-<main class="main-content">
-  <aside class="sidebar">
-    <div class="profile-container" id="profileContainer">
+  <form id="updateProfileForm" style="display: none;">
+    <div>
+      <label for="bio">Bio</label>
+      <input id="bio" type="text" name="bio" required>
     </div>
-  </aside>
-
-  <section class="content">
-    <div class="profile-banner">
-      <img src="" alt="Profile Banner" id="profileBannerImage">
+    <div>
+      <label for="avatar-url">Avatar URL</label>
+      <input id="avatar-url" type="text" name="avatar-url" required>
     </div>
+    <div>
+      <label for="avatar-alt">Avatar Alt Text</label>
+      <input id="avatar-alt" type="text" name="avatar-alt">
+    </div>
+    <div>
+      <label for="banner-url">Banner URL</label>
+      <input id="banner-url" type="text" name="banner-url" required>
+    </div>
+    <div>
+      <label for="banner-alt">Banner Alt Text</label>
+      <input id="banner-alt" type="text" name="banner-alt">
+    </div>
+    <button type="submit">Update Profile</button>
+  </form>
 
-    <p class="myPosts">My posts</p>
+  <form name="updateProfile">
+    <button>Update Profile</button>
+  </form>
 
-    <div id="posts-container"></div>
-  </section>
-</main>
+  <main class="main-content">
+    <aside class="sidebar">
+      <div class="profile-container" id="profileContainer">
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="profile-banner">
+        <img src="" alt="Profile Banner" id="profileBannerImage">
+      </div>
+
+      <p class="myPosts">My posts</p>
+
+      <div id="posts-container"></div>
+    </section>
+  </main>
 
 </body>
+
 </html>
