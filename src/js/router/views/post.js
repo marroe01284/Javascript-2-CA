@@ -1,6 +1,6 @@
 import {readPost} from '../../api/post/read';
 import {setLogoutListener} from '../../ui/global/logout';
-
+import {onDeletePost} from "../../ui/post/delete";
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
     renderPost();
@@ -51,7 +51,7 @@ async function renderPost() {
             ${isOwnProfile ? `
                 <div class="post-actions">
                     <button class="delete-btn" data-post-id="${post.id}">Delete</button>
-                    <a href="/edit/?postID=${post.id}">Edit</a>
+                    <a href="/post/edit/?postID=${post.id}">Edit</a>
                 </div>
             ` : ''}
         </div>
