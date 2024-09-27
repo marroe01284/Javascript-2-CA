@@ -1,10 +1,12 @@
 import {readPost} from '../../api/post/read';
 import {setLogoutListener} from '../../ui/global/logout';
 import {onDeletePost} from "../../ui/post/delete";
+
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
     renderPost();
 });
+
 /**
  * Retrieves the post ID from the URL query parameters.
  *
@@ -15,15 +17,17 @@ function getPostIDFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('postID');
 }
+
 /**
  * Retrieves the logged-in user's username from local storage.
  *
- * @function getLoggedInUserName
+ * @function loggedInUser
  * @returns {string|null} The logged-in user's username or null if not found.
  */
-function getLoggedInUserName() {
+function loggedInUser() {
     return localStorage.getItem('userID');
 }
+
 /**
  * Fetches and renders the post by its ID.
  *
@@ -41,8 +45,8 @@ async function renderPost() {
         const post = await readPost(postID);
         console.log('Post Data:', post);
 
-        const loggedInUserName = getLoggedInUserName();
-        const isOwnProfile = post.author.name === loggedInUserName;
+        const loggedInUserName = loggedInUser();
+        const ownProfile = post.author.name === loggedInUserName;
 
         const postContainer = document.getElementById('post-container');
         postContainer.innerHTML = '';
@@ -66,7 +70,7 @@ async function renderPost() {
                 <h2 class="post-title">${post.title}</h2>
                 <p class="post-body">${post.body}</p>
             </div>
-            ${isOwnProfile ? `
+            ${ownProfile ? `
                 <div class="post-actions">
                     <button class="delete-btn" data-post-id="${post.id}">Delete</button>
                     <a href="/post/edit/?postID=${post.id}">Edit</a>
@@ -77,7 +81,7 @@ async function renderPost() {
 
         postContainer.innerHTML += postHTML;
 
-        if (isOwnProfile) {
+        if (ownProfile) {
             const deleteButton = postContainer.querySelector('.delete-btn');
             deleteButton.addEventListener('click', () => {
                 onDeletePost(post.id);
@@ -88,6 +92,7 @@ async function renderPost() {
         displayError('Failed to load post. Please try again later.');
     }
 }
+
 /**
  * Displays an error message in the post container.
  *

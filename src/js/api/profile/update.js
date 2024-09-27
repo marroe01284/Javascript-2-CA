@@ -1,5 +1,6 @@
 import {API_SOCIAL_PROFILES, API_KEY} from "../constants";
 import {getKey} from "../auth/key";
+
 /**
  * Updates a post based on its ID.
  *
@@ -17,7 +18,7 @@ export async function updateProfile(profileData) {
 
     const username = localStorage.getItem('userID');
 
-    const requestOptions = {
+    const headerOptions = {
         method: "PUT",
         headers: myHeaders,
         body: JSON.stringify(profileData),
@@ -25,7 +26,7 @@ export async function updateProfile(profileData) {
     };
 
     try {
-        const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, requestOptions);
+        const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, headerOptions);
         if (!response.ok) {
             throw new Error(`Failed to update profile: ${response.statusText}`);
         }
