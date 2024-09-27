@@ -1,9 +1,9 @@
-import {authGuard} from "../../utilities/authGuard";
-import {setLogoutListener} from '../../ui/global/logout';
-import {readProfile} from '../../api/profile/read';
-import {readPostsByUser} from '../../api/post/read';
-import {onDeletePost} from "../../ui/post/delete";
-import {onUpdateProfile} from '../../ui/profile/update';
+import { authGuard } from "../../utilities/authGuard";
+import { setLogoutListener } from '../../ui/global/logout';
+import { readProfile } from '../../api/profile/read';
+import { readPostsByUser } from '../../api/post/read';
+import { onDeletePost } from "../../ui/post/delete";
+import { onUpdateProfile } from '../../ui/profile/update';
 
 document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 authGuard();
 
+/**
+ * Escapes special characters in a string to prevent XSS attacks.
+ *
+ * @function escapeHTML
+ * @param {string} str - The string to escape.
+ * @returns {string} The escaped string.
+ */
 function escapeHTML(str) {
     if (!str) return '';
     return str.replace(/[&<>'"]/g, function (tag) {
@@ -25,6 +32,14 @@ function escapeHTML(str) {
     });
 }
 
+/**
+ * Loads and displays the profile data for the current user or another user.
+ *
+ * @async
+ * @function loadProfile
+ * @returns {Promise<void>} A promise that resolves when the profile is loaded and displayed.
+ * @throws Will log an error if profile data fetching fails.
+ */
 async function loadProfile() {
     const authorID = getAuthorIDFromURL();
     const loggedInUserName = getLoggedInUserName();
@@ -36,9 +51,7 @@ async function loadProfile() {
         const profileData = profileResponse.data;
 
         displayProfileData(profileData, isOwnProfile);
-
         toggleEditProfileSections(isOwnProfile);
-
         loadUserPosts(isOwnProfile);
     } catch (error) {
         console.error('Error fetching profile data:', error);
@@ -47,15 +60,34 @@ async function loadProfile() {
 
 loadProfile();
 
+/**
+ * Retrieves the author ID from the URL query parameters.
+ *
+ * @function getAuthorIDFromURL
+ * @returns {string|null} The author ID from the URL or null if not found.
+ */
 function getAuthorIDFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('authorID');
 }
 
+/**
+ * Retrieves the logged-in user's ID from local storage.
+ *
+ * @function getLoggedInUserName
+ * @returns {string|null} The logged-in user's ID or null if not found.
+ */
 function getLoggedInUserName() {
     return localStorage.getItem('userID');
 }
 
+/**
+ * Toggles the visibility of the edit and update profile sections based on ownership of the profile.
+ *
+ * @function toggleEditProfileSections
+ * @param {boolean} isOwnProfile - Whether the profile belongs to the logged-in user.
+ * @returns {void}
+ */
 function toggleEditProfileSections(isOwnProfile) {
     const editProfileSection = document.getElementById('editProfileSection');
     const updateProfileForm = document.getElementById('updateProfileForm');
@@ -78,6 +110,14 @@ function toggleEditProfileSections(isOwnProfile) {
     }
 }
 
+/**
+ * Displays the user's profile data on the page.
+ *
+ * @function displayProfileData
+ * @param {Object} profileData - The profile data to display.
+ * @param {boolean} isOwnProfile - Whether the profile belongs to the logged-in user.
+ * @returns {void}
+ */
 function displayProfileData(profileData = {}, isOwnProfile) {
     const profileContainer = document.getElementById('profileContainer');
     const profileBannerImage = document.getElementById('profileBannerImage');
@@ -107,6 +147,15 @@ function displayProfileData(profileData = {}, isOwnProfile) {
     }
 }
 
+/**
+ * Loads and displays the user's posts.
+ *
+ * @async
+ * @function loadUserPosts
+ * @param {boolean} isOwnProfile - Whether the posts belong to the logged-in user.
+ * @returns {Promise<void>} A promise that resolves when the posts are loaded and displayed.
+ * @throws Will log an error if posts fetching fails.
+ */
 async function loadUserPosts(isOwnProfile) {
     const username = isOwnProfile ? getLoggedInUserName() : getAuthorIDFromURL();
 
@@ -119,6 +168,14 @@ async function loadUserPosts(isOwnProfile) {
     }
 }
 
+/**
+ * Displays the user's posts on the page.
+ *
+ * @function displayUserPosts
+ * @param {Array} posts - The array of posts to display.
+ * @param {boolean} isOwnProfile - Whether the posts belong to the logged-in user.
+ * @returns {void}
+ */
 function displayUserPosts(posts, isOwnProfile) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';

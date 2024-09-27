@@ -5,15 +5,33 @@ document.addEventListener('DOMContentLoaded', () => {
     setLogoutListener();
     renderPost();
 });
-
+/**
+ * Retrieves the post ID from the URL query parameters.
+ *
+ * @function getPostIDFromURL
+ * @returns {string|null} The post ID retrieved from the URL or null if not found.
+ */
 function getPostIDFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('postID');
 }
-
+/**
+ * Retrieves the logged-in user's username from local storage.
+ *
+ * @function getLoggedInUserName
+ * @returns {string|null} The logged-in user's username or null if not found.
+ */
 function getLoggedInUserName() {
     return localStorage.getItem('userID');
 }
+/**
+ * Fetches and renders the post by its ID.
+ *
+ * @async
+ * @function renderPost
+ * @returns {Promise<void>} A promise that resolves once the post is rendered.
+ * @throws Will display an error message if the post cannot be fetched.
+ */
 
 async function renderPost() {
     const postID = getPostIDFromURL();
@@ -70,7 +88,13 @@ async function renderPost() {
         displayError('Failed to load post. Please try again later.');
     }
 }
-
+/**
+ * Displays an error message in the post container.
+ *
+ * @function displayError
+ * @param {string} message - The error message to display.
+ * @returns {void}
+ */
 function displayError(message) {
     const postContainer = document.getElementById('post-container');
     postContainer.innerHTML = `<p class="error-message">${message}</p>`;

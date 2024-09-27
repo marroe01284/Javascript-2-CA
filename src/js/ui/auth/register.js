@@ -1,5 +1,14 @@
-import {register} from "../../api/auth/register.js";
+import { register } from "../../api/auth/register.js";
 
+/**
+ * Handles the registration form submission.
+ *
+ * @async
+ * @function onRegister
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>} A promise that resolves once the registration is complete.
+ * @throws Will display an alert if the registration fails.
+ */
 export async function onRegister(event) {
     event.preventDefault();
 
@@ -14,6 +23,7 @@ export async function onRegister(event) {
 
     try {
         const result = await register(registerData);
+
         if (result) {
             alert('Registration successful! Redirecting you to login...');
             window.location.href = '/auth/login/';

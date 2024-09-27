@@ -1,52 +1,54 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noroff FED2 JS2 CA</title>
   <script type="module" src="/src/app.js"></script>
 </head>
 
 <body>
 
-<nav id="profileNav">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/profile/">My Profile</a></li>
-    <li><a href="/auth/login/">Login</a></li>
-    <li><a href="/auth/register/">Register</a></li>
-    <li><a href="/post/create/">Create Post</a></li>
-  </ul>
-</nav>
+  <nav id="profileNav">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile/">My Profile</a></li>
+      <li><a href="/auth/login/">Login</a></li>
+      <li><a href="/auth/register/">Register</a></li>
+      <li><a href="/post/create/">Create Post</a></li>
+    </ul>
+  </nav>
 
-<div id="loginDiv">
-  <h1>Register</h1>
-  <form name="register">
-    <div>
-      <label for="name">Username</label>
-      <input id="name" type="text" name="name" required maxlength="20" pattern="^[\w]+$"
-             title="Please enter a username using only letters and numbers" placeholder="Your username"/>
-    </div>
+  <div id="loginDiv">
+    <h1>Register</h1>
+    <form name="register">
+      <div>
+        <label for="name">Username</label>
+        <input id="name" type="text" name="name" required maxlength="20" pattern="^[\w]+$"
+          title="Please enter a username using only letters and numbers" placeholder="Your username" />
+      </div>
 
-    <div>
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-             title="Please enter a valid noroff.no or stud.noroff.no address" placeholder="yourmail@stud.noroff.no"/>
-    </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+          title="Please enter a valid noroff.no or stud.noroff.no address" placeholder="yourmail@stud.noroff.no" />
+      </div>
 
-    <div>
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required minlength="8" placeholder="•••••••••••"/>
-    </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required minlength="8" placeholder="•••••••••••" />
+      </div>
 
-    <div id="btnDiv">
-      <button>Register</button>
-      <p>or</p>
-      <a href="/auth/login/">Login</a>
-    </div>
-  </form>
-</div>
+      <div id="btnDiv">
+        <button>Register</button>
+        <p>or</p>
+        <a href="/auth/login/">Login</a>
+      </div>
+    </form>
+  </div>
 
 
 </body>
+
 </html>
