@@ -63,7 +63,7 @@ To start the development server:
 npm run dev
 ```
 
-The app will be running on http://localhost:3000.
+The app will be running on http://localhost:5181/
 
 ## Folder Structure
 The project is organized as follows:
