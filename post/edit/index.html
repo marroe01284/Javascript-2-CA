@@ -1,18 +1,41 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
+    <title>Edit Post</title>
     <script type="module" src="/src/app.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
     <h1>Edit Post</h1>
+    <div id="edit-post-form-container">
+        <form id="editPostForm">
+            <div>
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" required />
+            </div>
+            <div>
+                <label for="body">Body</label>
+                <textarea id="body" name="body" required></textarea>
+            </div>
+            <div>
+                <label for="tags">Tags (comma-separated)</label>
+                <input id="tags" type="text" name="tags" />
+            </div>
+            <div>
+                <label for="media-url">Media URL</label>
+                <input id="media-url" type="text" name="media-url" />
+            </div>
+            <div>
+                <label for="media-alt">Media Alt Text</label>
+                <input id="media-alt" type="text" name="media-alt" />
+            </div>
+            <button type="submit">Update Post</button>
+            <button type="button" onclick="window.history.back()">Cancel</button>
+        </form>
+    </div>
+</body>
 
-    <form name="editPost">
-      <button>Edit Post</button>
-    </form>
-  </body>
 </html>

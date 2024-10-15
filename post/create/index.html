@@ -1,16 +1,48 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
-    <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-    <h1>Create Post</h1>
 
-    <form name="createPost">
-      <button>Create Post</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noroff FED2 JS2 CA</title>
+  <script type="module" src="/src/app.js"></script>
+</head>
+
+<body>
+
+  <nav id="profileNav">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile/">My Profile</a></li>
+      <li><a href="/auth/login/">Login</a></li>
+      <li><a href="/auth/register/">Register</a></li>
+      <li><a href="/post/create/">Create Post</a></li>
+    </ul>
+  </nav>
+
+  <div id="loginDiv">
+    <h1>Create Post</h1>
+    <form name="createPost" method="post">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+      </div>
+      <div>
+        <label for="post">Content</label>
+        <input type="text" name="post" id="post">
+      </div>
+      <div>
+        <label for="image">Image Url</label>
+        <input type="text" name="image" id="image">
+      </div>
+      <div>
+        <label for="tags">Tags</label>
+        <input type="text" name="tags" id="tags">
+      </div>
+      <button type="submit">Create Post</button>
     </form>
-  </body>
+  </div>
+
+</body>
+
 </html>
